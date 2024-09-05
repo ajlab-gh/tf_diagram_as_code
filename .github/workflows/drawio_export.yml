@@ -18,6 +18,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Install Xvfb
+        run: sudo apt-get install -y xvfb
+  
       - name: Download Drawio Desktop App
         run: |
           wget https://github.com/jgraph/drawio-desktop/releases/download/v21.4.0/drawio-x86_64-21.4.0.AppImage -O drawio.AppImage
@@ -28,9 +31,9 @@ jobs:
           ./drawio.AppImage --appimage-extract
           ls squashfs-root  # Verify extraction
   
-      - name: Export Drawio to PNG
+      - name: Export Drawio to PNG using Xvfb
         run: |
-          ./squashfs-root/drawio --export --format png --output diagram/architecture.png diagram/architecture.drawio
+          xvfb-run --auto-servernum --server-args="-screen 0 1024x768x24" ./squashfs-root/drawio --export --format png --output diagram/architecture.png diagram/architecture.drawio
 
       - name: Configure Git
         run: |
