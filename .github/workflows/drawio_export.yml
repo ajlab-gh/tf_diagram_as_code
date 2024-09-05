@@ -31,6 +31,13 @@ jobs:
         run: |
           ./drawio.AppImage --appimage-extract
           ls squashfs-root  # Verify extraction
+          
+      - name: Remove existing PNG file (if any)
+        run: |
+          if [ -f diagram/architecture.png ]; then
+            echo "Removing existing PNG file"
+            rm diagram/architecture.png
+          fi
   
       - name: Export Drawio to PNG using Xvfb
         run: |
