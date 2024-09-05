@@ -3,7 +3,7 @@ name: Export Drawio to PNG
 
 on:
   workflow_dispatch:
-  pull_request:
+  push:
     branches:
       - main
     paths:
@@ -23,9 +23,14 @@ jobs:
           wget https://github.com/jgraph/drawio-desktop/releases/download/v21.4.0/drawio-x86_64-21.4.0.AppImage -O drawio.AppImage
           chmod +x drawio.AppImage
   
+      - name: Extract Drawio AppImage
+        run: |
+          ./drawio.AppImage --appimage-extract
+          ls squashfs-root  # Verify extraction
+  
       - name: Export Drawio to PNG
         run: |
-          ./drawio.AppImage --export --format png --output diagram/architecture.png diagram/architecture.drawio
+          ./squashfs-root/drawio --export --format png --output diagram/architecture.png diagram/architecture.drawio
 
       - name: Configure Git
         run: |
