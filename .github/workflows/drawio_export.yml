@@ -9,6 +9,7 @@ on:
     paths:
       - 'diagram/architecture.drawio'
       - '.github/workflows/drawio_export.yml'
+      - 'src/reference.drawio'
 
 jobs:
   export-drawio:
