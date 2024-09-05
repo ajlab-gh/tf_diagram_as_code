@@ -36,7 +36,7 @@ jobs:
 
       - name: Export Drawio to PNG using Xvfb
         run: |
-          xvfb-run --auto-servernum --server-args="-screen 0 1024x768x24" ./squashfs-root/drawio --export --format png --output diagram/architecture.png diagram/architecture.drawio
+          xvfb-run --auto-servernum --server-args="-screen 0 1024x768x24" ./squashfs-root/drawio --export --format png --output diagram/architecture.png --width 1149 --height 464 diagram/architecture.drawio
 
       - name: Configure Git
         run: |
