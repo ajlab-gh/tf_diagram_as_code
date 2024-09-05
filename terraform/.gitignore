@@ -9,3 +9,6 @@
 *.tfstate.backup
 .terraform/
 *terraform.*
+
+drawio.AppImage
+squashfs-root/

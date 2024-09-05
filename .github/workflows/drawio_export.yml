@@ -31,14 +31,7 @@ jobs:
         run: |
           ./drawio.AppImage --appimage-extract
           ls squashfs-root  # Verify extraction
-          
-      - name: Remove existing PNG file (if any)
-        run: |
-          if [ -f diagram/architecture.png ]; then
-            echo "Removing existing PNG file"
-            rm diagram/architecture.png
-          fi
-  
+
       - name: Export Drawio to PNG using Xvfb
         run: |
           xvfb-run --auto-servernum --server-args="-screen 0 1024x768x24" ./squashfs-root/drawio --export --format png --output diagram/architecture.png diagram/architecture.drawio
@@ -50,6 +43,7 @@ jobs:
 
       - name: Commit PDF to the repository
         run: |
+          git fetch origin main
           git add diagram/architecture.png
           git commit -m "Add/update Diagram in PNG Format"
           git push origin main
