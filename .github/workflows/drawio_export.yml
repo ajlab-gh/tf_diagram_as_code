@@ -1,9 +1,12 @@
 name: Export Drawio to PNG
 
 on:
-  push:
+  pull_request:
+    branches:
+      - main
     paths:
-      - 'path/to/diagram.drawio'  # Trigger on diagram changes
+      - 'diagram/architecture.drawio'
+      - '.github/workflows/drawio_export.yml'
 
 jobs:
   export-drawio:
