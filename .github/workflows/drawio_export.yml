@@ -1,0 +1,47 @@
+name: Export Drawio to PNG
+
+on:
+  push:
+    paths:
+      - 'path/to/diagram.drawio'  # Trigger on diagram changes
+
+jobs:
+  export-drawio:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js environment
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'  # Choose a suitable Node.js version
+
+    - name: Install Drawio CLI
+      run: |
+        npm install -g @hediet/graphviz-binaries
+        npm install -g drawio-export
+
+    - name: Export Drawio to PNG
+      run: |
+        drawio-export --output diagram/architecture.png diagram/architecture.drawio
+
+    - name: Upload PNG artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: diagram-png
+        path: path/to/diagram.png
+
+    - name: Configure Git
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: Commit PDF to the repository
+      run: |
+        git add diagram/architecture.png
+        git commit -m "Add/update Diagram in PNG Format"
+        git push origin main
+      env:
+        GH_TOKEN: ${{ github.token }}
