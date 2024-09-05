@@ -1,5 +1,5 @@
 resource "local_file" "generate_drawio" {
-  filename = "../outputs/architecture.drawio"
+  filename = "../diagram/architecture.drawio"
   content = templatefile("../src/reference.drawio", {
     vnetName          = azurerm_virtual_network.fgtvnetwork.name
     vnetAddressPrefix = var.vnetcidr
