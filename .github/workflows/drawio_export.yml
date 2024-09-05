@@ -20,9 +20,9 @@ jobs:
 
       - name: Download Drawio Desktop App
         run: |
-          wget https://github.com/jgraph/drawio-desktop/releases/download/v21.2.3/drawio-x86_64-21.2.3.AppImage -O drawio.AppImage
+          wget https://github.com/jgraph/drawio-desktop/releases/download/v21.4.0/drawio-x86_64-21.4.0.AppImage -O drawio.AppImage
           chmod +x drawio.AppImage
-
+  
       - name: Export Drawio to PNG
         run: |
           ./drawio.AppImage --export --format png --output diagram/architecture.png diagram/architecture.drawio
