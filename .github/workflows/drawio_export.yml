@@ -1,3 +1,4 @@
+---
 name: Export Drawio to PNG
 
 on:
@@ -17,25 +18,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Node.js environment
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'  # Choose a suitable Node.js version
-
-      - name: Install Drawio CLI
+      - name: Download Drawio Desktop App
         run: |
-          npm install -g @hediet/graphviz-binaries
-          npm install -g drawio-export
+          wget https://github.com/jgraph/drawio-desktop/releases/download/v21.2.3/drawio-x86_64-21.2.3.AppImage -O drawio.AppImage
+          chmod +x drawio.AppImage
 
       - name: Export Drawio to PNG
         run: |
-          drawio-export --output diagram/architecture.png diagram/architecture.drawio
-
-      - name: Upload PNG artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: diagram-png
-          path: path/to/diagram.png
+          ./drawio.AppImage --export --format png --output diagram/architecture.png diagram/architecture.drawio
 
       - name: Configure Git
         run: |
